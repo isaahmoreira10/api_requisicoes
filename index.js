@@ -64,10 +64,55 @@ app.post("/imc",(req,res)=>{
         nota2: n2,
         media: media.toFixed(2),
         resultado: status
+   
+    });
+
+    app.post("/alistamento", (req, res) => {
+    const { nome, idade, sexo } = req.body;
+
+    // Validação
+    if (!nome || idade === undefined || !sexo) {
+        return res.status(400).json({
+            error: "Dados incompletos"
+        });
+    }
+
+    const idadeNum = Number(idade);
+
+    if (isNaN(idadeNum)) {
+        return res.status(400).json({
+            error: "A idade deve ser um número"
+        });
+    }
+
+    let mensagem = "";
+
+    if (sexo.toLowerCase() === "M") {
+        if (idadeNum >= 18) {
+            mensagem = "Alistamento concluído com sucesso";
+        } else {
+            mensagem = "O exército te aguarda";
+        }
+    } else if (sexo.toLowerCase() === "F") {
+        if (idadeNum >= 18) {
+            mensagem = "Busque um curso preparatório";
+        } else {
+            mensagem = "Alistamento não obrigatório";
+        }
+    } else {
+        return res.status(400).json({
+            error: "Sexo deve ser 'M' ou 'F'"
+        });
+    }
+
+    res.json({
+        nome,
+        idade: idadeNum,
+        sexo,
+        resultado: mensagem
     });
 });
-
-
+});
 
 
 
