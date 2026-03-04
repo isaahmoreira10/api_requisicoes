@@ -38,6 +38,41 @@ app.post("/imc",(req,res)=>{
 
 });
 
+ app.post("/media", (req, res) => {
+    const { nome, nota1, nota2 } = req.body;
+
+    // Validação
+    if (!nome || nota1 === undefined || nota2 === undefined) {
+        return res.status(400).json({
+            error: "Dados incompletos"
+        });
+    }
+
+    const n1 = Number(nota1);
+    const n2 = Number(nota2);
+
+    if (isNaN(n1) || isNaN(n2)) {
+        return res.status(400).json({
+            error: "As notas devem ser números"
+        });
+    }
+
+    const media = (n1 + n2) / 2;
+
+    const status = media >= 7 ? "Aprovado" : "Reprovado";
+
+    res.json({
+        nome,
+        nota1: n1,
+        nota2: n2,
+        media: media.toFixed(2),
+        resultado: status
+    });
+});
+
+
+
+
 
 app.listen(port,()=>{
     console.log(`Servidor rodando em http://localhost:${port}`);
