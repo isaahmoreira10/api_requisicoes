@@ -87,13 +87,13 @@ app.post("/imc",(req,res)=>{
 
     let mensagem = "";
 
-    if (sexo.toLowerCase() === "masculino") {
+    if (sexo.toLowerCase() === "M") {
         if (idadeNum >= 18) {
             mensagem = "Alistamento concluído com sucesso";
         } else {
             mensagem = "O exército te aguarda";
         }
-    } else if (sexo.toLowerCase() === "feminino") {
+    } else if (sexo.toLowerCase() === "F") {
         if (idadeNum >= 18) {
             mensagem = "Busque um curso preparatório";
         } else {
@@ -101,7 +101,7 @@ app.post("/imc",(req,res)=>{
         }
     } else {
         return res.status(400).json({
-            error: "Sexo deve ser 'masculino' ou 'feminino'"
+            error: "Sexo deve ser 'M' ou 'F'"
         });
     }
 
