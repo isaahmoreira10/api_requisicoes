@@ -40,7 +40,7 @@ app.post("/imc",(req,res)=>{
 
  app.post("/media", (req, res) => {
     const { nome, nota1, nota2 } = req.body;
-
+ }
     // Validação
     if (!nome || nota1 === undefined || nota2 === undefined) {
         return res.status(400).json({
@@ -55,9 +55,6 @@ app.post("/imc",(req,res)=>{
         return res.status(400).json({
             error: "As notas devem ser números"
         });
-    }
-
-    const media = (n1 + n2) / 2;
 
     const status = media >= 7 ? "Aprovado" : "Reprovado";
 
